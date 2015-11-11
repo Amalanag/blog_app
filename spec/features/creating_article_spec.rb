@@ -13,4 +13,4 @@ RSpec.feature "creating Articles" do
     expect(page.current_path).to eq(articles_path)
 
   end
-end
+  end
