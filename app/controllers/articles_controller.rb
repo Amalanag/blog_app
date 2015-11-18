@@ -21,9 +21,17 @@ class ArticlesController < ApplicationController
 end
 
   def edit
-  end
+		if @article.user != current_user
+			flash[:danger] = "you can only edit your own article"
+			redirect_to root_path
+		end
+ end
 
   def update
+		if @article.user != current_user
+			flash[:danger] = "You can only edit your own article."
+			redirect_to root_path
+		else
     if @article.update(article_params)
       flash[:success] = "Article has been updated"
     redirect_to @article
@@ -32,8 +40,10 @@ end
       render 'edit'
   end
  end
-
+end
+	
   def show
+		@comment = @article.comments.build
   end
 
 	def destroy
