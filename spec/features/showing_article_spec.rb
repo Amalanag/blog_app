@@ -4,6 +4,7 @@ RSpec.feature "Showing an Article" do
 
   before do
 		@amala = User.create(email:"amalarails@gmail.com",password:"123456789")
+		@amu = User.create(email:"bondadaamala@gmail.com",password: "123456789")
 		@article = Article.create(title:"The first article", body: "Body of first article",user: @amala)
   end
 	scenario "A non-signed in user does not see Edit and Delete links" do
@@ -20,7 +21,7 @@ RSpec.feature "Showing an Article" do
 
 		scenario "A non-owner signed in cannot see Edit and Delete links" do
 
-		  login_as(@amala)
+		  login_as(@amu)
 			visit "/"
 			click_link @article.title
 
@@ -31,9 +32,9 @@ RSpec.feature "Showing an Article" do
 
 	scenario "A signed in owner can see Edit and Delete links" do
      login_as(@amala)
-		
+
 			visit "/"
-		
+
 			click_link @article.title
 
 		expect(page).to have_link("Edit Article")

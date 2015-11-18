@@ -11,7 +11,7 @@ RSpec.describe ArticlesController, type: :controller do
 		context "owner is allowed to edit his articles" do
 			it "renders the edit template" do
 			login_user @amala
-			article = Article.create(title: "first_article", body: "body of first article" , user: @amala)
+			article = Article.create(title: "first article", body: "body of first article" , user: @amala)
 
 			get :edit, id: article
 			expect(response).to render_template :edit
@@ -20,7 +20,7 @@ RSpec.describe ArticlesController, type: :controller do
 
 	context "non-owner is not allowed to edit other users articles" do
 		it "redirects to the root path" do
-			amu = User.create(email: "bonadadaamala@gmail.com",password: "123456789")
+			amu = User.create(email: "bondadaamala@gmail.com",password: "123456789")
 			login_user amu
 
 			article = Article.create(title: "First article", body: "body of first article", user: @amala)
